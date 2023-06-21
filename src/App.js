@@ -1,25 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import { Route, Routes, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import Home from './pages/Home';
+import Account from './pages/Account';
+import Login from './pages/Login';
+
+
 
 function App() {
+
+  const [authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    console.log(authenticated)
+  }, [authenticated])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>
+        <p>{authenticated ? "Logged in" : "Logged out"}</p>
+        <h1>Nav</h1>
+        <Link to="/">Home</Link>
+        <Link to="/account">Account</Link>
+        <Link to="/login">Login</Link>
+      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/login" element={<Login setAuthenticated={setAuthenticated}/>} />
+      </Routes>
     </div>
   );
 }
+
+
 
 export default App;
